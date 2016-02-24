@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button id="myButton">测试</button>
+<div id="myDiv" data-appId="12345" data-myname="Nicholas"></div>
+</body>
+<script type="text/javascript">
+    var button = document.getElementById("myButton");
+    button.focus();
+    alert(document.activeElement === button);   //true
+    alert(document.charset); //"UTF-16"
+    //document.charset = "UTF-8";
+
+    var div = document.getElementById("myDiv");
+    var appId = div.dataset.appId;
+    //var myName = div.dataset.myname;
+    //设置值
+    div.dataset.appId = 23456;
+    //div.dataset.myname = "Michael";
+    //有没有"myname"值呢?
+    if (div.dataset.myname){
+        alert("Hello, " + div.dataset.myname);
+    }
+    div.innerHTML = "Hello & welcome, <b>\"reader\"!</b>";
+</script>
+</html>

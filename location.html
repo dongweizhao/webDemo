@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+Hello Location
+</body>
+<script type="text/javascript">
+    function getQueryString() {
+        var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+                args = {},
+                items = qs.length>0 ? qs.split("&") : [],
+                name = null,
+                item = null,
+                value = null,
+                len = items.length;
+        for (var i = 0; i < len;i++) {
+            item = items[i].split("=");
+            name = decodeURIComponent(item[0]);
+            value = decodeURIComponent(item[1]);
+            if (name.length){
+                args[name] = value;
+            }
+
+        }
+        return args;
+    }
+
+    var args=getQueryString();
+
+    alert(args['name']);
+
+
+   // location.hash="#section1"
+    //location.search = "?name=javascript";
+</script>
+</html>

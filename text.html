@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style rel="stylesheet" type="text/css">
+        .Message {
+            background: red;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    //normalize合并节点
+//    var element = document.createElement('div');
+//    element.className = 'Message';
+//    var textNode = document.createTextNode('Hello World');
+//    element.appendChild(textNode);
+//    var anthorTextNode = document.createTextNode(' hi Yahoo!');
+//    element.appendChild(anthorTextNode);
+//
+//    document.body.appendChild(element);
+//
+//    alert(element.childNodes.length);    //2
+//    element.normalize();
+//    alert(element.childNodes.length);    //1
+//    alert(element.firstChild.nodeValue);
+
+    ///splitText方法，分割节点
+
+
+    var element = document.createElement('div');
+    element.className = 'Message';
+    var textNode = document.createTextNode('Hello World');
+    element.appendChild(textNode);
+
+    var newNode = element.firstChild.splitText(5);
+    alert(element.firstChild.nodeValue); //"Hello"
+    alert(newNode.nodeValue); //" world!"
+    alert(element.childNodes.length);
+</script>
+</html>

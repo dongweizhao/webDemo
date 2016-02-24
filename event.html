@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>事件系统</title>
+</head>
+
+
+<body style="height: 4000px;">
+<div id="myDiv">
+    测试div
+    <input type="button" value="我是测试" id="btn"/>
+    <input type="button" value="移除事件" id="remove"/>
+    <a href="http://www.baidu.com">测试</a>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/commonUtils.js"></script>
+<script>
+    $.onReady(function () {
+
+        App.EventUtil.addEvent(window,'unload',function(){
+            alert('unloaded');
+        });
+
+        App.EventUtil.addEvent(window, "scroll", function(event){
+            if (document.compatMode == "CSS1Compat"){
+                alert(document.documentElement.scrollTop);
+            } else {
+                alert(document.body.scrollTop);
+            }
+        });
+
+        var btn = document.getElementById('btn');
+
+        function btnClick() {
+            alert('测试....' + this.value);
+            return false;
+        }
+        function btnClick1(){
+            alert('测试222....' + this.value);
+            return false;
+        }
+
+        App.EventUtil.addEvent(btn, 'click', btnClick);
+        App.EventUtil.addEvent(btn, 'click', btnClick1);
+
+//        var myDiv = document.getElementById('myDiv');
+//        App.EventUtil.addEvent(myDiv, 'click', function () {
+//            alert('测试div....');
+//        });
+
+
+        var removeDel = document.getElementById('remove');
+        App.EventUtil.addEvent(removeDel, 'click', function () {
+            App.EventUtil.removeEvent(btn, 'click', btnClick);
+            alert('移除事件成功');
+           // App.EventUtil.addEvent(btn, 'click', btnClick1);
+            return false;
+        });
+
+
+
+    });
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body>
+<button id="btn">测试</button>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/commonUtils.js"></script>
+<script type="text/javascript">
+    function saiHi(name) {
+        alert(name);
+    }
+    saiHi.createCallback('张三')();
+    var btn = $('#btn').dom;
+    App.EventUtil.addEvent(btn, 'click', saiHi.createCallback('张三'));
+
+    var sayHiToFriend = saiHi.createInterceptor(function (name) {
+        return name === 'Davie';
+    });
+    sayHiToFriend('张三');
+    sayHiToFriend('Davie');
+</script>
+</html>

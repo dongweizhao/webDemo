@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/commonUtils.js"></script>
+    <script type="text/javascript">
+        function ShopCard() {}
+        ShopCard.prototype = {
+            constructor: ShopCard,
+            buyCar: function (type) {
+                return this.createCard(type);
+            },
+            createCard: function (type) {
+                throw new Error('the method is abstract...!');
+            }
+        }
+
+        function BenzShop() {
+        }
+        App.extend(BenzShop, ShopCard);
+
+        BenzShop.prototype.createCard = function (type) {
+            return CardFactory.getCar(['Benz'], type);
+        }
+
+        function AudiShop() {
+        }
+        App.extend(AudiShop, ShopCard);
+
+        AudiShop.prototype.createCard = function (type) {
+            return CardFactory.getCar(['Audi'], type);
+        }
+
+
+        function BmwShop() {
+        }
+        App.extend(BmwShop, ShopCard);
+
+        BmwShop.prototype.createCard = function (type) {
+            return CardFactory.getCar(['Bmw'], type);
+        }
+
+        var CardFactory = {
+            createCar: function (type) {
+                var car = eval('new ' + type + 'Car()');
+                App.Interface.checkedImpl(car, carInterface);
+                return car;
+            },
+            getCar: function (types, type) {
+                for (var t in types) {
+                    if (types[t] === type) {
+                        return this.createCar(type);
+                    }
+                }
+                alert('没有你要的型号');
+                throw new Error('not found Car by ' + type);
+            }
+        }
+
+        var carInterface = new App.Interface('car', ['start', 'run']);
+
+        /**
+         * supperClass
+         * @constructor
+         */
+        function BaseCar() {
+        }
+        BaseCar.prototype = {
+            construtor: BaseCar,
+            start: function () {
+                alert(this.construtor.name + ' start...')
+            },
+            run: function () {
+                alert(this.construtor.name + ' run...')
+            }
+        }
+
+        function BenzCar() {
+        }
+
+        App.extend(BenzCar, BaseCar);
+
+        BenzCar.prototype.sayHello = function () {
+            alert('BenzCar sayHello...');
+        }
+
+        function AudiCar() {
+        }
+
+        App.extend(AudiCar, BaseCar);
+
+        AudiCar.prototype.sayHello = function () {
+            alert('AudiCar sayHello...');
+        }
+
+        function BmwCar() {
+        }
+
+        App.extend(BmwCar, BaseCar);
+
+        BmwCar.prototype.sayHello = function () {
+            alert('BmwCar sayHello...');
+        }
+        var benzShop = new BenzShop();
+        var benzCar = benzShop.buyCar('Benz');
+        benzCar.start();
+        benzCar.run();
+
+
+    </script>
+</head>
+<body>
+<strong>动态工厂</strong>
+</body>
+</html>

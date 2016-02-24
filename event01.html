@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="height: 4000px">
+<form>
+    <input type="text" name="username" value="23232" id="username">
+    <input type="button" value="Echo Username" onclick="alert(username.value)">
+    <input type="button" value="测试" id="eventN">
+
+    <div id="myDiv" style="background-color:red;height:100px;width:100px;"></div>
+    <div id="testDiv" style="background-color:red;height:100px;width:100px;"></div>
+</form>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/commonUtils.js"></script>
+<script>
+    var eventN = $('#eventN');
+    App.EventUtil.addEvent(eventN, 'click', function (event) {
+        var event = App.EventUtil.getEvent(event);
+        var keys = [];
+        if (event.ctrlKey) {
+            keys.push('crtl');
+        }
+        if (event.shiftKey) {
+            keys.push('shiftkey');
+        }
+        if (event.metaKey) {
+            keys.push('metaKey');
+        }
+        if (event.altKey) {
+            keys.push('altKey');
+        }
+        alert("keys :" + keys.join(','));
+    });
+
+    var myDiv = $('#myDiv');
+    //    App.EventUtil.addEvent(myDiv,'mouseout',function(event){
+    //        event=App.EventUtil.getEvent(event);
+    //        var target=App.EventUtil.getTarget(event);
+    //        var relatedTarget=App.EventUtil.getRelatedTarget(event);
+    //        alert("Moused out of " + target.tagName + " to " + relatedTarget.tagName);
+    //    });
+
+    //    App.EventUtil.addEvent(myDiv, 'mousedown', function (event) {
+    //        event = App.EventUtil.getEvent(event);
+    //        alert(App.EventUtil.getButtons(event));
+    //    })
+
+    //
+    //    App.EventUtil.addEvent(document, "mousewheel", function (event) {
+    //        event = App.EventUtil.getEvent(event);
+    //        alert(event.wheelDelta);
+    //    });
+
+    App.EventUtil.addEvent(document, "DOMMouseScroll", function (event) {
+        event = App.EventUtil.getEvent(event);
+        alert(event.detail);
+    });
+
+    //    var testDiv = document.getElementById('testDiv');
+    //    App.EventUtil.addEvent(window, "orientationchange", function (event) {
+    //        testDiv.innerHTML = "Current orientation is " + window.orientation;
+    //    });
+
+    //    var testDiv = document.getElementById('testDiv');
+    //    App.EventUtil.addEvent(window, "devicemotion", function (event) {
+    //                if(event.acceleration){
+    //                    testDiv.innerHTML = "y=" + event.acceleration.y + ", x=" +event.acceleration.x + ", z=" +event.acceleration.z;
+    //                }
+    ////                if (event.rotationRate !== null) {
+    ////                    testDiv.innerHTML += "Alpha=" + event.rotationRate.alpha + ", Beta=" +
+    ////                            event.rotationRate.beta + ", Gamma=" +
+    ////                            event.rotationRate.gamma;
+    ////                }
+    //            }
+    //        );
+    /**
+     * 触摸事件
+     * @type {HTMLElement}
+     */
+    function touchHandler(event) {
+        //if (event.touches.length == 1) {
+            var output = document.getElementById('testDiv');
+            switch (event.type) {
+                case "touchstart":
+                    output.innerHTML = "Touch started (" + event.touches[0].clientX +
+                            "," + event.touches[0].clientY + ")";
+                    break;
+
+                case "touchend":
+                    output.innerHTML += "<br>Touch ended (" +
+                            event.changedTouches[0].clientX + "," +
+                            event.changedTouches[0].clientY + ")";
+                    break;
+                case "touchmove":
+
+                    event.preventDefault(); //阻止滚动
+                    output.innerHTML += "<br>Touch moved (" +
+                            event.changedTouches[0].clientX + "," +
+                            event.changedTouches[0].clientY + ")";
+                break;
+            }
+        //}
+
+    }
+
+
+//    App.EventUtil.addEvent(document, "touchstart",touchHandler);
+//    App.EventUtil.addEvent(document, "touchmove",touchHandler);
+//    App.EventUtil.addEvent(document, "touchend",touchHandler);
+
+
+
+
+    function handleGestureEvent(event) {
+        var output = document.getElementById("testDiv");
+        switch (event.type) {
+            case "gesturestart":
+                output.innerHTML = "Gesture started (rotation=" + event.rotation + ",scale=" + event.scale + ")";
+                break;
+            case "gestureend":
+                output.innerHTML += "<br>Gesture ended (rotation=" + event.rotation + ",scale=" + event.scale + ")";
+                break;
+            case "gesturechange":
+                output.innerHTML += "<br>Gesture changed (rotation=" + event.rotation + ",scale=" + event.scale + ")";
+                break;
+        }
+    }
+    App.EventUtil.addEvent(document, "gesturestart",handleGestureEvent);
+    App.EventUtil.addEvent(document, "gestureend",handleGestureEvent);
+    App.EventUtil.addEvent(document, "gesturechange",handleGestureEvent);
+
+</script>
+</body>
+</html>
