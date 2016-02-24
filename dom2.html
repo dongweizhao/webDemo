@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+dom2
+<div></div>
+</body>
+<script>
+    function createScript(code) {
+        var script = document.createElement('script');
+        try {
+            script.type = 'text/javascript';
+            script.appendChild(document.createTextNode(code));
+
+        } catch (ex) {
+            script.text = code;
+        }
+        document.body.appendChild(script);
+    }
+
+    createScript('function sayHi(){alert("Hi");}');
+    sayHi();
+
+    function createStyle(code) {
+        var style = document.createElement('style');
+        try {
+            style.type = 'text/css';
+            style.appendChild(document.createTextNode(code));
+        } catch (ex) {
+            style.styleSheet.cssText=code;
+        }
+        var head = document.getElementsByTagName('head')[0];
+        head.appendChild(style);
+    }
+
+    createStyle('body{background-color:red;}');
+
+    var divs = document.getElementsByTagName("div"),
+            i,
+            len, div;
+    for (i=0, len=divs.length; i < len; i++){
+        div = document.createElement("div");
+        console.log('divs.length');
+        document.body.appendChild(div);
+    }
+</script>
+</html>

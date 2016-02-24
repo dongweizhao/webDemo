@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/commonUtils.js"></script>
+    <script type="text/javascript">
+        var ShopCard = function () {
+        };
+        ShopCard.prototype.buyCar = function (type) {
+            var car;
+            switch (type) {
+                case 'Benz':
+                    car = new BenzCar();
+                    break;
+                case 'Audi':
+                    car = new AudiCar();
+                    break;
+                case 'Bmw':
+                    car = new BmwCar();
+                    break;
+                default :
+                    throw  new Error('not found by ' + type);
+                    break;
+            }
+            App.Interface.checkedImpl(car, carInterface);
+            return car;
+        }
+
+        var carInterface = new App.Interface('car', ['start', 'run']);
+
+        /**
+         * supperClass
+         * @constructor
+         */
+        function BaseCar() {
+        }
+        BaseCar.prototype = {
+            construtor: BaseCar,
+            start: function () {
+                alert(this.construtor.name + ' start...')
+            },
+            run: function () {
+                alert(this.construtor.name + ' run...')
+            }
+        }
+
+        function BenzCar() {
+        }
+
+        App.extend(BenzCar, BaseCar);
+
+        BenzCar.prototype.sayHello = function () {
+            alert('BenzCar sayHello...');
+        }
+
+        function AudiCar() {
+        }
+
+        App.extend(AudiCar, BaseCar);
+
+        AudiCar.prototype.sayHello = function () {
+            alert('AudiCar sayHello...');
+        }
+
+        function BmwCar() {
+        }
+
+        App.extend(BmwCar, BaseCar);
+
+        BmwCar.prototype.sayHello = function () {
+            alert('BmwCar sayHello...');
+        }
+
+        var shopCardFac = new ShopCard();
+        var benzCar = shopCardFac.buyCar('Benz');
+        benzCar.start();
+        benzCar.run();
+        benzCar.sayHello();
+    </script>
+</head>
+<body>
+<strong>简单工厂1</strong>
+</body>
+</html>

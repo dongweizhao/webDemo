@@ -1,0 +1,84 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style rel="stylesheet" type="text/css">
+        .bd {
+            background: red;
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+Dom1
+<div id="myDiv" class="bd" title="Body text" lang="en" dir="ltr" test="name">
+    <ul id="myList">
+        <li>文本1</li>
+        <li>文本2</li>
+        <li>文本3</li>
+        <li>文本4</li>
+    </ul>
+
+</div>
+</body>
+<script type="text/javascript">
+    var html = document.documentElement;
+    alert(html === document.childNodes[0]);
+    alert(html === document.firstChild);
+
+    var div = document.getElementById('myDiv');
+    alert(div.getAttribute('id'));
+    alert(div.getAttribute('class'));
+    alert("className:" + div.getAttribute('className'));
+    alert("test:" + div.getAttribute('test'));
+
+    alert("nodeValue:" + div.attributes['id'].nodeValue);
+
+
+    var cls = div.removeAttribute('class');
+    alert('cls:' + cls);
+    //通过attributes的removeNamedItem删除节点会返回对应删除的属性节点而removeAttribute方法不会
+    var title = div.attributes.removeNamedItem('title');
+    alert('title:' + title);
+
+    /**
+     * 遍历元素的属性
+     * @param element
+     * @returns {string}
+     */
+    function outputAttri(element) {
+        var parirs = [],
+                attrName,
+                attrValue,
+                specified,
+                i,
+                len;
+        for (i = 0, len = element.attributes.length; i < len; i++) {
+            attrName = element.attributes[i].nodeName;
+            attrValue = element.attributes[i].nodeValue;
+            specified = element.attributes[i].specified;
+            if (specified) {
+                parirs.push(attrName + "=" + attrValue + "=" + specified);
+            }
+        }
+        return parirs.join(" ");
+    }
+
+    alert(outputAttri(div));
+
+    /**
+     *ie出现的子节点数量为4，其他浏览器为7，因为包含空文本节点
+     * @type {HTMLElement}
+     */
+    var myList = document.getElementById('myList');
+    alert("childNodes.length:" + myList.childNodes.length);
+    for (var i = 0; i < myList.childNodes.length; i++) {
+        alert(myList.childNodes[i].nodeType);
+    }
+
+
+
+
+</script>
+</html>

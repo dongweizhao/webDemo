@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style rel="stylesheet" type="text/css">
+        .draggable {
+            width: 300px;
+            height: 300px;
+        }
+
+        .status {
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="draggable" style="position:absolute; background:red"></div>
+<div id="status" class="status"></div>
+</body>
+<script type="text/javascript" src="js/commonUtils.js"></script>
+<script type="text/javascript">
+
+    var DragDrop = function () {
+        var dragging = null, dragDrop = new App.EventTarget(), diffX = 0, diffY = 0;
+
+        function handleEvent(event) {
+            var target = App.EventUtil.getTarget(event);
+            switch (event.type) {
+                case 'mousedown':
+                    if (target.className.indexOf('draggable') > -1) {
+                        dragging = target;
+                        diffX = event.clientX - target.offsetLeft;
+                        diffY = event.clientY - target.offsetTop;
+                        dragDrop.fire({type: 'dragstart', target: dragging, x: event.clientX, y: event.clientY});
+                    }
+                    break;
+                case  'mousemove':
+                    if (dragging) {
+                        dragging.style.left = (event.clientX - diffX) + 'px';
+                        dragging.style.top = (event.clientY - diffY) + 'px';
+                        dragDrop.fire({type: 'drag', target: dragging, x: event.clientX, y: event.clientY});
+                    }
+                    break;
+                case 'mouseup':
+                    dragDrop.fire({type: 'dragend', target: dragging, x: event.clientX, y: event.clientY});
+                    dragging = null;
+                    break;
+            }
+        }
+
+        dragDrop.enable = function () {
+            App.EventUtil.addEvent(document, 'mousedown', handleEvent);
+            App.EventUtil.addEvent(document, 'mousemove', handleEvent);
+            App.EventUtil.addEvent(document, 'mouseup', handleEvent);
+        },
+                dragDrop.disable = function () {
+                    App.EventUtil.removeEvent(document, 'mousedown', handleEvent);
+                    App.EventUtil.removeEvent(document, 'mousemove', handleEvent);
+                    App.EventUtil.removeEvent(document, 'mouseup', handleEvent);
+                }
+        return dragDrop;
+    }
+    //var eventTarget=new App.EventTarget();
+
+    var dragObj = DragDrop();
+    var obj = document.getElementById('status');
+    dragObj.addHandler('dragstart', function (event) {
+        obj.innerHTML = "Started dragging " + event.target.id;
+    });
+    dragObj.addHandler('drag', function (event) {
+        obj.innerHTML += "<br/> Dragged " + event.target.id + " to (" + event.x +
+                "," + event.y + ")";
+    });
+    dragObj.addHandler('dragend', function (event) {
+        obj.innerHTML += "<br/> Dropped " + event.target.id + " at (" + event.x + "," + event.y + ")";
+    });
+
+    dragObj.enable();
+</script>
+</html>

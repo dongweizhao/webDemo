@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function stopDefault(e) {
+            if (e && e.preventDefault) {//如果是FF下执行这个
+                e.preventDefault();
+            } else {
+                window.event.returnValue = false;//如果是IE下执行这个
+            }
+        }
+    </script>
+</head>
+<body>
+<a href="http://www.baidu.com" id="test">测试</a>
+<script type="text/javascript">
+    var test = document.getElementById('test');
+    test.onclick = function (e) {
+        alert('URL：' + this.href + ', 不会跳转');
+        stopDefault(e);
+    }
+
+</script>
+</body>
+</html>

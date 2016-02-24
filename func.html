@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+    // var d1=new Date();
+    // var t1=d1.getTime();
+    // for (var i = 0; i < 1000000; i++) {
+    // 	 // function test2 () {
+    // 	 // 	// body...
+    // 	 // }
+    // 	// var test2=function(){}
+    // 	function(){}
+    // 	 //var test1=new Function();
+  
+    // 	// new Function();
+    // };
+    // var d2=new Date();
+    // var t2=d2.getTime();
+    // alert(t2-t1);
+
+
+    // function f(){return 1;}
+    // alert(f());//4,被第四覆盖
+    // var f=new Function('return 2;');
+    // alert(f());//2,顺序执行
+    // var f=function(){return 3;}
+    // alert(f());//3,顺序执行
+    // function f(){return 4;}
+    // alert(f());//3,被第三覆盖
+    // var f=new Function('return 5;');
+    // alert(f());//5
+    // var f=function(){return 6;}
+    // alert(f());//6
+
+    // (function bildUrl(){
+    //         var qs = "?debug=true";
+    //             function test2(){
+    //             	 with(location){
+    //                    var url = href + qs;    
+    //                    //href=href+"232323";
+    //                    var test="2";
+    //                  }
+                  
+    //               alert(url);
+    //               alert(test);
+    //             }
+    //         test2();
+    //         alert(location.href);
+    //         alert(location.url);
+
+          
+    //     })()
+
+
+        (function bildUrl(){
+            var qs = "?debug=true";
+            
+            if (!url)
+            {
+                alert("这里可以看到url"); //可以正常显示url已经被声明并且被扫描进函数的变量对象
+            }
+            
+            try{
+                if (!a)
+                {
+                    alert(1);// 报错因为a根本就不存在
+                }
+            }
+            catch(e){
+            	handleError(e);
+            	
+                //console.log("作用域链被延长了吧");
+            }
+            
+            with(location){
+                var url = href + qs;    
+            }
+            
+        })()
+
+
+         // var o={};  
+         // var href="1111";  
+         // function buildUrl(){  
+         //      var qs="?debug=true";       
+         //      with(o){  
+         //           href="2222";  
+         //           var url=href+qs;  
+         //      }      
+         //      return url;  
+         // }  
+         // var result=buildUrl();  
+         // alert(result);  
+         // alert(href); 
+
+
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

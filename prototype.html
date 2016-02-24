@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<script type="text/javascript">
+	function Animal(){}
+	
+	var anim=new Animal();
+
+	console.log('anim.constructor===Animal:'+(anim.constructor===Animal))    ;    //true
+    console.log('Animal===Animal.prototype.constructor:'+(Animal===Animal.prototype.constructor))    ;    //true
+    console.log("Animal.prototype.constructor:"+Animal.prototype.constructor);
+    console.log('Animal.constructor===Function.prototype.constructor:'+(Animal.constructor===Function.prototype.constructor));   //true
+    console.log("Function.prototype.constructor:"+Function.prototype.constructor);
+    console.log('Function.prototype.constructor===Function:'+(Function.prototype.constructor===Function));    //true
+    console.log("Function.prototype.constructor:"+Function.prototype.constructor);
+    console.log('Function.constructor===Function.prototype.constructor:'+(Function.constructor===Function.prototype.constructor));    //true
+    console.log("Function.prototype.constructor:"+Function.prototype.constructor);
+    console.log('Object.prototype.constructor===Object:'+(Object.prototype.constructor===Object));    //true
+    console.log("Object.prototype.constructor:"+Object.prototype.constructor);
+    console.log('Object.constructor====Function:'+(Object.constructor===Function));    //true
+    console.log("Object.constructor:"+Object.constructor);
+</script>
+<body>
+   <strong>Hello World</strong>
+</body>
+</html>
